@@ -156,7 +156,7 @@ Vanilladin
 
 <br>
 
-<details>
+<details open>
 <summary>디렉토리 설명</summary>
 
 - **Application** : App / Scene Delegate
@@ -183,7 +183,7 @@ Vanilladin
 
 ## 싱글톤으로 생성하는 기준
 
-<details>
+<details open>
 <summary>접기/펼치기</summary>
 <br>
 
@@ -217,7 +217,7 @@ Vanilladin
 
 ## 의존성 컨테이너의 인스턴스 고유 식별 문제
 
-<details>
+<details open>
 <summary>접기/펼치기</summary>
 <br>
 
@@ -253,7 +253,7 @@ Vanilladin
 
 ## 레지스트리 인스턴스 미등록 예외처리 문제
 
-<details>
+<details open>
 <summary>접기/펼치기</summary>
 <br>
 
@@ -317,7 +317,7 @@ Vanilladin
 
 ## 이미지 동시 요청 순차처리 문제
 
-<details>
+<details open>
 <summary>접기/펼치기</summary>
 <br>
 
@@ -385,7 +385,7 @@ Aladin API에서 응답받은 책 데이터에는 책 이미지 URL이 포함되
 
 ## Keyword Cell 버튼 탭 불가 문제
 
-<details>
+<details open>
 <summary>접기/펼치기</summary>
 <br>
 
@@ -474,7 +474,7 @@ UI에서는 정상적으로 deleteButton이 그려졌지만, superView인 paddin
 
 ## 검색 버튼 클릭 vs 최근 검색어 터치 포커스 차이
 
-<details>
+<details open>
 <summary>접기/펼치기</summary>
 <br>
 
