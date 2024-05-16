@@ -11,24 +11,13 @@ final class ImageCacheManager {
         self.cache = .init()
         self.memoryWarningNotification = UIApplication.didReceiveMemoryWarningNotification
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(removeAllObjects),
-            name: memoryWarningNotification,
-            object: nil)
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(
-            self,
-            name: memoryWarningNotification,
-            object: nil)
+        addMemoryObserver()
     }
     
     // MARK: - Method
     func getObject(for key: String) -> UIImage? {
         let cacheKey: NSString = .init(string: key)
-        let cachedImage: UIImage? = ImageCacheManager.shared.cache.object(forKey: cacheKey)
+        let cachedImage: UIImage? = cache.object(forKey: cacheKey)
         
         return cachedImage
     }
@@ -38,15 +27,30 @@ final class ImageCacheManager {
         for key: String
     ) {
         let cacheKey: NSString = .init(string: key)
-        ImageCacheManager.shared.cache.setObject(object, forKey: cacheKey)
+        cache.setObject(object, forKey: cacheKey)
     }
     
     func removeObject(for key: String) {
         let cacheKey: NSString = .init(string: key)
-        ImageCacheManager.shared.cache.removeObject(forKey: cacheKey)
+        cache.removeObject(forKey: cacheKey)
     }
     
     @objc func removeAllObjects() {
-        ImageCacheManager.shared.cache.removeAllObjects()
+        cache.removeAllObjects()
+    }
+    
+    func addMemoryObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(removeAllObjects),
+            name: memoryWarningNotification,
+            object: nil)
+    }
+    
+    func removeMemoryObserver() {
+        NotificationCenter.default.removeObserver(
+            self,
+            name: memoryWarningNotification,
+            object: nil)
     }
 }
