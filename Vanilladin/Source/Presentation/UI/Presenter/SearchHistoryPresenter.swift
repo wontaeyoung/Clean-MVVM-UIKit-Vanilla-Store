@@ -1,4 +1,4 @@
-final class SearchHistoryViewModel: ViewModelProtocol {
+final class SearchHistoryPresenter: PresenterProtocol {
     // MARK: - Property
     private let dataSource: SearchHistoryDataSource
     

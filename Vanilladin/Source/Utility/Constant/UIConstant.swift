@@ -27,8 +27,8 @@ enum UIConstant {
         static let scalemass: String = "scalemass"
         static let booksVerticalCircle: String = "books.vertical.circle"
         static let keyboardChevronCompactDown: String = "keyboard.chevron.compact.down"
-        static let bookmark: String = "bookmark"
-        static let bookmarkFill: String = "bookmark.fill"
+        static let booksVertical: String = "books.vertical"
+        static let bookVerticalFill: String = "books.vertical.fill"
     }
     
     enum Rating {

@@ -4,7 +4,7 @@ final class BookDetailViewController: BaseViewController {
     // MARK: - Property
     private let book: Book
     private let bookDetail: BookDetail
-    private let bookDetailViewModel: BookDetailViewModel
+    private let bookDetailPresenter: BookDetailPresenter
     private var descriptionState: DescriptionState
     private var isBookmark: Bool {
         didSet {
@@ -84,11 +84,11 @@ final class BookDetailViewController: BaseViewController {
     init(
         book: Book,
         bookDetail: BookDetail,
-        bookDetailViewModel: BookDetailViewModel
+        bookDetailPresenter: BookDetailPresenter
     ) {
         self.book = book
         self.bookDetail = bookDetail
-        self.bookDetailViewModel = bookDetailViewModel
+        self.bookDetailPresenter = bookDetailPresenter
         self.descriptionState = .notDetermined
         self.isBookmark = false
         
@@ -264,7 +264,7 @@ private extension BookDetailViewController {
     }
     
     func setBookmark() {
-        self.isBookmark = bookDetailViewModel.isRegister(isbn13: book.isbn13)
+        self.isBookmark = bookDetailPresenter.isRegister(isbn13: book.isbn13)
     }
     
     @MainActor
@@ -272,8 +272,8 @@ private extension BookDetailViewController {
         let Symbol = UIConstant.SFSymbol.self
         let image: UIImage? = .init(
             systemName: isBookmark
-            ? Symbol.bookmarkFill
-            : Symbol.bookmark)
+            ? Symbol.bookVerticalFill
+            : Symbol.booksVertical)
         
         let barButtonItem: UIBarButtonItem = .init(
             image: image,
@@ -287,10 +287,16 @@ private extension BookDetailViewController {
     @objc func didTapBookmark() {
         switch isBookmark {
             case true:
-                bookDetailViewModel.removeMyBook(book: book)
+                bookDetailPresenter.removeMyBook(book: book) { [weak self] state in
+                    guard let self else { return }
+                    
+                    isBookmark = state
+                }
                 
             case false:
-                bookDetailViewModel.saveMyBook(book: book)
+                bookDetailPresenter.saveMyBook(
+                    book: book,
+                    isBookmark: &isBookmark)
         }
     }
 }

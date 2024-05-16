@@ -2,8 +2,8 @@ import UIKit
 
 final class BookListViewController: BaseViewController {
     // MARK: - Property
-    private let searchBookViewModel: SearchBookViewModel
-    private let bookListViewModel: BookListViewModel
+    private let searchBookPresenter: SearchBookPresenter
+    private let bookListPresenter: BookListPresenter
     
     // MARK: - UI
     private lazy var bookTableView: BookTableView = .init()
@@ -19,11 +19,11 @@ final class BookListViewController: BaseViewController {
     
     // MARK: - Initializer
     init(
-        searchBookViewModel: SearchBookViewModel,
-        bookListViewModel: BookListViewModel
+        searchBookPresenter: SearchBookPresenter,
+        bookListPresenter: BookListPresenter
     ) {
-        self.searchBookViewModel = searchBookViewModel
-        self.bookListViewModel = bookListViewModel
+        self.searchBookPresenter = searchBookPresenter
+        self.bookListPresenter = bookListPresenter
         
         super.init()
     }
@@ -31,12 +31,12 @@ final class BookListViewController: BaseViewController {
     // MARK: - Method
     override func setAttribute() {
         // DataSource, Delegate 설정
-        bookListViewModel.setDataSourceDelegate(self)
-        bookListViewModel.setTableViewDataSource(to: bookTableView)
-        bookListViewModel.setCollectionViewDataSource(to: bookCollectionView)
+        bookListPresenter.setDataSourceDelegate(self)
+        bookListPresenter.setTableViewDataSource(to: bookTableView)
+        bookListPresenter.setCollectionViewDataSource(to: bookCollectionView)
         bookTableView.delegate = self
         bookCollectionView.delegate = self
-        searchBookViewModel.setDelegate(self, type: .scrollLoadingIndicator)
+        searchBookPresenter.setDelegate(self, type: .scrollLoadingIndicator)
         
         // CollectionView Grid 레이아웃 설정
         guard let laytout = bookCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { 
@@ -57,7 +57,7 @@ final class BookListViewController: BaseViewController {
         
         // List Style Toggle에 대한 Action 전달
         selectListTypeView.toggleAction = {
-            let currentType: BookListViewModel.ListType = self.bookListViewModel.toggleListType()
+            let currentType: BookListPresenter.ListType = self.bookListPresenter.toggleListType()
             
             switch currentType {
             case .table:
@@ -143,14 +143,14 @@ extension BookListViewController: UIScrollViewDelegate, UITableViewDelegate, UIC
         // 스크롤이 끝 지점에서 화면 높이 1/3 지점에 도달 + 로딩 중 X + 추가로 요청할 데이터가 서버에 있음
         guard
             offsetY >= contentHeight - (frameHeight + frameHeight / 3),
-            searchBookViewModel.isLoading == false,
-            searchBookViewModel.hasMoreData
+            searchBookPresenter.isLoading == false,
+            searchBookPresenter.hasMoreData
         else {
             return
         }
         
         Task {
-            await searchBookViewModel.requestBooks(type: .more)
+            await searchBookPresenter.requestBooks(type: .more)
         }
     }
     
@@ -166,7 +166,7 @@ extension BookListViewController: UIScrollViewDelegate, UITableViewDelegate, UIC
         didSelectRowAt indexPath: IndexPath
     ) {
         Task {
-            await bookListViewModel.showBookDetailView(at: indexPath.row)
+            await bookListPresenter.showBookDetailView(at: indexPath.row)
         }
     }
     
@@ -175,7 +175,7 @@ extension BookListViewController: UIScrollViewDelegate, UITableViewDelegate, UIC
         didSelectItemAt indexPath: IndexPath
     ) {
         Task {
-            await bookListViewModel.showBookDetailView(at: indexPath.row)
+            await bookListPresenter.showBookDetailView(at: indexPath.row)
         }
     }
 }

@@ -2,8 +2,8 @@ import UIKit
 
 final class SearchBookViewController: BaseViewController {
     // MARK: - Property
-    private let searchBookViewModel: SearchBookViewModel
-    private let searchHistoryViewModel: SearchHistoryViewModel
+    private let searchBookPresenter: SearchBookPresenter
+    private let searchHistoryPresenter: SearchHistoryPresenter
     private var hasSearchGuideShown: Bool = false
     
     // MARK: - UI
@@ -49,11 +49,11 @@ final class SearchBookViewController: BaseViewController {
     
     // MARK: - Initializer
     init(
-        searchBookViewModel: SearchBookViewModel,
-        searchHistoryViewModel: SearchHistoryViewModel
+        searchBookPresenter: SearchBookPresenter,
+        searchHistoryPresenter: SearchHistoryPresenter
     ) {
-        self.searchBookViewModel = searchBookViewModel
-        self.searchHistoryViewModel = searchHistoryViewModel
+        self.searchBookPresenter = searchBookPresenter
+        self.searchHistoryPresenter = searchHistoryPresenter
         
         super.init()
     }
@@ -104,12 +104,12 @@ extension SearchBookViewController: UISearchBarDelegate {
             searchResultNavigationController.popViewController(animated: false)
         } else {
             hideSearchGuide()
-            searchBookViewModel.showSearchView(type: .keyword(self))
+            searchBookPresenter.showSearchView(type: .keyword(self))
         }
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBookViewModel.showSearchView(type: .result(searchResultNavigationController))
+        searchBookPresenter.showSearchView(type: .result(searchResultNavigationController))
     }
 }
 
@@ -122,8 +122,8 @@ private extension SearchBookViewController {
     
     func searchBookAndShowResult(searchText: String) {
         Task {
-            await searchBookViewModel.requestBooks(type: .new(keyword: searchText))
-            searchHistoryViewModel.saveKeyword(searchText)
+            await searchBookPresenter.requestBooks(type: .new(keyword: searchText))
+            searchHistoryPresenter.saveKeyword(searchText)
             searchBar.resignFirstResponder()
         }
     }

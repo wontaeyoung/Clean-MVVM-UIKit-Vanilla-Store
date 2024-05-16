@@ -2,8 +2,8 @@ import UIKit
 
 final class SearchHistoryViewController: BaseViewController {
     // MARK: - Property
-    private let searchBookViewModel: SearchBookViewModel
-    private let searchHistoryViewModel: SearchHistoryViewModel
+    private let searchBookPresenter: SearchBookPresenter
+    private let searchHistoryPresenter: SearchHistoryPresenter
     private weak var delegate: SearchHistoryViewDelegate?
     
     // MARK: - UI
@@ -21,20 +21,20 @@ final class SearchHistoryViewController: BaseViewController {
     
     // MARK: - Initializer
     init(
-        searchBookViewModel: SearchBookViewModel,
-        searchHistoryViewModel: SearchHistoryViewModel
+        searchBookPresenter: SearchBookPresenter,
+        searchHistoryPresenter: SearchHistoryPresenter
     ) {
-        self.searchBookViewModel = searchBookViewModel
-        self.searchHistoryViewModel = searchHistoryViewModel
+        self.searchBookPresenter = searchBookPresenter
+        self.searchHistoryPresenter = searchHistoryPresenter
         
         super.init()
     }
     
     // MARK: - Method
     override func setAttribute() {
-        searchHistoryViewModel.setDataSourceDelegate(self)
-        searchHistoryViewModel.setTableViewDataSource(to: searchHistoryTableView)
-        searchBookViewModel.setDelegate(
+        searchHistoryPresenter.setDataSourceDelegate(self)
+        searchHistoryPresenter.setTableViewDataSource(to: searchHistoryTableView)
+        searchBookPresenter.setDelegate(
             self,
             type: .searchLoadingIndicator)
         searchHistoryTableView.delegate = self
@@ -79,7 +79,7 @@ extension SearchHistoryViewController: UITableViewDelegate {
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
-        guard let keyword = searchHistoryViewModel.getKeyword(at: indexPath.row) else {
+        guard let keyword = searchHistoryPresenter.getKeyword(at: indexPath.row) else {
             return
         }
         
@@ -91,7 +91,7 @@ extension SearchHistoryViewController: UITableViewDelegate {
         viewForHeaderInSection section: Int
     ) -> UIView? {
         return SearchHistoryHeaderView {
-            self.searchHistoryViewModel.removeAllKeywords()
+            self.searchHistoryPresenter.removeAllKeywords()
         }
     }
 }

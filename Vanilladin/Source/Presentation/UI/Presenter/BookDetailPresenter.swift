@@ -1,4 +1,4 @@
-final class BookDetailViewModel: ViewModelProtocol {
+final class BookDetailPresenter: PresenterProtocol {
     // MARK: - Property
     private let dataSource: MyBookDataSource
     weak var coordinator: BookCoordinator?
@@ -9,24 +9,35 @@ final class BookDetailViewModel: ViewModelProtocol {
     }
     
     // MARK: - Method
-    func saveMyBook(book: Book) {
+    func saveMyBook(
+        book: Book,
+        isBookmark: inout Bool
+    ) {
         do {
             try dataSource.saveMyBook(book: book)
+            
+            isBookmark = true
         } catch {
             coordinator?.handle(error: error)
         }
     }
     
-    func removeMyBook(book: Book) {
+    func removeMyBook(
+        book: Book,
+        completion: @escaping (Bool) -> Void
+    ) {
         coordinator?.showAlert(
             title: UIConstant.Alert.removeMyBookTitle,
             message: UIConstant.Alert.removeMyBookMessage,
-            okTitle: "꺼내기"
+            okTitle: "확인",
+            cancelTitle: "취소"
         ) { [weak self] in
             guard let self else { return }
             
             do {
                 try dataSource.removeMyBook(book: book)
+                
+                completion(false)
             } catch {
                 coordinator?.handle(error: error)
             }

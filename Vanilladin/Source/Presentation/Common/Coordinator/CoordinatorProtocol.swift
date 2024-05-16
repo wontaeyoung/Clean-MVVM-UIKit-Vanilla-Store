@@ -53,6 +53,7 @@ extension CoordinatorProtocol {
         title: String,
         message: String,
         okTitle: String,
+        cancelTitle: String,
         action: @escaping () -> Void
     ) {
         let alertController: UIAlertController = .init(
@@ -62,11 +63,17 @@ extension CoordinatorProtocol {
         
         let okAction: UIAlertAction = .init(
             title: okTitle,
-            style: .default) { _ in
-                action()
-            }
+            style: .destructive
+        ) { _ in
+            action()
+        }
+        
+        let cancelAction: UIAlertAction = .init(
+            title: cancelTitle,
+            style: .cancel)
         
         alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
         
         DispatchQueue.main.async {
             self.navigationController.present(alertController, animated: true)

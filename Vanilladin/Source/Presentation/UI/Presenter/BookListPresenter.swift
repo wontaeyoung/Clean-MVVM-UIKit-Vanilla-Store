@@ -1,6 +1,6 @@
 import Foundation
 
-final class BookListViewModel: ViewModelProtocol {
+final class BookListPresenter: PresenterProtocol {
     enum ListType {
         case table
         case collection
