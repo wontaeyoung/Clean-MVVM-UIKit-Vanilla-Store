@@ -1,4 +1,4 @@
-final class BookDetailViewModel: ViewModelProtocol {
+final class BookDetailPresenter: PresenterProtocol {
     // MARK: - Property
     private let dataSource: MyBookDataSource
     weak var coordinator: BookCoordinator?

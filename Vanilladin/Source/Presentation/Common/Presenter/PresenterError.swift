@@ -1,4 +1,4 @@
-enum ViewModelError: AppErrorProtocol {
+enum PresenterError: AppErrorProtocol {
     case requestFailed
     
     var errorDescription: String {

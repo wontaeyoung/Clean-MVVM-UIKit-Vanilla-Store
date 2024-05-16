@@ -28,12 +28,12 @@ extension BookCoordinator {
         do {
             let container: DependencyContainer = .shared
             
-            let searchViewModel: SearchBookViewModel = try container.resolve()
-            let historyViewModel: SearchHistoryViewModel = try container.resolve()
+            let searchPresenter: SearchBookPresenter = try container.resolve()
+            let historyPresenter: SearchHistoryPresenter = try container.resolve()
             let searchBookViewController: SearchBookViewController = .init(
-                searchBookViewModel: searchViewModel,
-                searchHistoryViewModel: historyViewModel)
-            searchViewModel.coordinator = self
+                searchBookPresenter: searchPresenter,
+                searchHistoryPresenter: historyPresenter)
+            searchPresenter.coordinator = self
             
             push(searchBookViewController)
         } catch {
@@ -45,11 +45,11 @@ extension BookCoordinator {
         do {
             let container: DependencyContainer = .shared
             
-            let searchViewModel: SearchBookViewModel = try container.resolve()
-            let historyViewModel: SearchHistoryViewModel = try container.resolve()
+            let searchPresenter: SearchBookPresenter = try container.resolve()
+            let historyPresenter: SearchHistoryPresenter = try container.resolve()
             let viewController: SearchHistoryViewController = .init(
-                searchBookViewModel: searchViewModel,
-                searchHistoryViewModel: historyViewModel)
+                searchBookPresenter: searchPresenter,
+                searchHistoryPresenter: historyPresenter)
             viewController.setDelegate(searchViewController)
             
             searchViewController.searchResultNavigationController.viewControllers = [viewController]
@@ -62,12 +62,12 @@ extension BookCoordinator {
         do {
             let container: DependencyContainer = .shared
             
-            let searchViewModel: SearchBookViewModel = try container.resolve()
-            let bookListViewModel: BookListViewModel = try container.resolve()
+            let searchPresenter: SearchBookPresenter = try container.resolve()
+            let bookListPresenter: BookListPresenter = try container.resolve()
             let viewController: BookListViewController = .init(
-                searchBookViewModel: searchViewModel,
-                bookListViewModel: bookListViewModel)
-            bookListViewModel.coordinator = self
+                searchBookPresenter: searchPresenter,
+                bookListPresenter: bookListPresenter)
+            bookListPresenter.coordinator = self
             
             searchResultNavigationController.pushViewController(viewController, animated: false)
         } catch {
@@ -81,13 +81,13 @@ extension BookCoordinator {
         bookDetail: BookDetail
     ) {
         do {
-            let viewModel: BookDetailViewModel = try DependencyContainer.shared.resolve()
-            viewModel.coordinator = self
+            let presenter: BookDetailPresenter = try DependencyContainer.shared.resolve()
+            presenter.coordinator = self
             
             let viewController: BookDetailViewController = .init(
                 book: book,
                 bookDetail: bookDetail,
-                bookDetailViewModel: viewModel)
+                bookDetailPresenter: presenter)
             
             push(viewController)
         } catch {

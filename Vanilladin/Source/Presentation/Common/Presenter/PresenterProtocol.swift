@@ -1,0 +1,1 @@
+protocol PresenterProtocol: DependencyContainable { }

@@ -1,5 +1,5 @@
 import UIKit
-final class SearchBookViewModel: ViewModelProtocol {
+final class SearchBookPresenter: PresenterProtocol {
     enum RequestType {
         case new(keyword: String)
         case more
@@ -83,7 +83,7 @@ final class SearchBookViewModel: ViewModelProtocol {
 }
 
 // MARK: - Private
-private extension SearchBookViewModel {
+private extension SearchBookPresenter {
     func startLoading(type: RequestType) {
         isLoading = true
         switch type {

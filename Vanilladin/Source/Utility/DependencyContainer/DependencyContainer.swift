@@ -51,11 +51,11 @@ final class DependencyContainer: DependencyContainerProtocol {
         let searchHistoryDataSource: SearchHistoryDataSource = .init(searchKeywordRepository: searchKeywordRepository)
         let myBookDataSource: MyBookDataSource = .init(myBookRepository: myBookRepository)
         
-        // MARK: - ViewModel
-        let bookListViewModel: BookListViewModel = .init(bookDataSource: bookDataSource)
-        let searchHistoryViewmodel: SearchHistoryViewModel = .init(dataSource: searchHistoryDataSource)
-        let searchBookViewModel: SearchBookViewModel = .init(dataSource: bookDataSource)
-        let bookDetailViewModel: BookDetailViewModel = .init(dataSource: myBookDataSource)
+        // MARK: - Presenter
+        let bookListPresenter: BookListPresenter = .init(bookDataSource: bookDataSource)
+        let searchHistoryPresenter: SearchHistoryPresenter = .init(dataSource: searchHistoryDataSource)
+        let searchBookPresenter: SearchBookPresenter = .init(dataSource: bookDataSource)
+        let bookDetailPresenter: BookDetailPresenter = .init(dataSource: myBookDataSource)
         
         let modules: [DependencyContainable] = [
             // MARK: - InfraStructure
@@ -72,11 +72,11 @@ final class DependencyContainer: DependencyContainerProtocol {
             bookDataSource,
             searchHistoryDataSource,
             
-            // MARK: - ViewModel
-            bookListViewModel,
-            searchHistoryViewmodel,
-            searchBookViewModel,
-            bookDetailViewModel
+            // MARK: - Presenter
+            bookListPresenter,
+            searchHistoryPresenter,
+            searchBookPresenter,
+            bookDetailPresenter
         ]
         
         modules.forEach { module in
