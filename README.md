@@ -66,9 +66,9 @@
 
 ## 구현 고려사항
 
-- 라이브러리를 사용하지 않고 **바닐라** 프로그래밍으로 구현했습니다.
-- **`DI Container`** 를 구현해서 의존성을 관리했습니다. 
-- 데이터 변경 사항을 **MVP**와 **`Delegate`** 패턴으로 UI에 반영했습니다.
+- 라이브러리를 사용하지 않고 **바닐라** 프로그래밍 구현
+- **`DI Container`** 를 구현해서 의존성 관리
+- 데이터 변경 사항을 **MVP**와 **`Delegate`** 패턴으로 UI에 반영
 
 <br><br><br><br>
 
@@ -78,13 +78,13 @@
 
 <img src="https://github.com/wontaeyoung/Vanilladin/assets/45925685/e123e776-69b1-4676-b16b-b482020a005a" width="500">
 
-- NSCache를 이용하여 이미지 캐싱을 구현하고, 이미지 요청 시점에 캐시 적용 분기를 추가했습니다.
+- NSCache를 이용하여 이미지 캐싱을 구현하고, 이미지 요청 시점에 캐시 적용 분기 추가
 
 <br>
 
 <img src="https://github.com/wontaeyoung/Vanilladin/assets/45925685/9854d86a-68b8-4ec0-ada9-46becddcc5c9" width="400">
 
-- Scene 라이프사이클에 메모리 경고 옵저빙 로직을 연결해서 리소스를 회수했습니다.
+- Scene 라이프사이클에 메모리 경고 옵저버를 연결해서 리소스 사용 및 회수
 
 <br>
 
@@ -155,11 +155,11 @@ final class ImageCacheManager {
 
 ### 다중 이미지 요청 병렬처리 적용
 
-- 책 리스트 조회 과정에서 이미지 URL을 통해서 10개의 이미지를 순차 요청하는 문제가 발생했습니다.
+- 책 리스트 조회 과정에서 10개의 이미지 **순차 요청** 문제 발생
   
-- TaskGroup을 사용한 병렬 처리를 적용하여 응답 시간을 **약 3.6배**(테스트 기준) 개선했습니다.
+- TaskGroup을 사용한 병렬 처리를 적용하여 응답 시간 **약 3.6배**(테스트 기준) 개선
   
-- 병렬 처리 결과를 **요청 인덱스** 기준으로 재정렬하여, 검색의 정렬 기준인 Accuracy를 보장했습니다.
+- 병렬 처리 결과를 **요청 인덱스** 기준으로 재정렬하여, 검색의 정렬 기준인 Accuracy 보장
   
 <br>
   
@@ -169,12 +169,12 @@ final class ImageCacheManager {
   
 ### 의존성 컨테이너 고유 인스턴스 식별
 
-- **`DependencyContainer`** 는 레지스트리를 통해 의존성을 관리합니다. 
-인스턴스 획득 시 이미 등록된 의존성을 체크해서 재사용할 수 있도록 합니다.
+- **`DependencyContainer`** 는 레지스트리를 사용하여 의존성 관리 
+인스턴스 요청 시, 이미 등록된 의존성을 체크해서 재사용
 
-- 인스턴스 등록 여부를 식별하기 위해, **`ObjectIdentifier`** 를 레지스트리의 Key로 채택했습니다.
+- 인스턴스 등록 여부를 식별하기 위해, **`ObjectIdentifier`** 를 레지스트리 Key로 채택
 
-- **`ObjectIdentifier`** 는 **Type** 자체가 정의된 메타데이터를 기반으로 생성되기 때문에, 해당 타입의 인스턴스가 이미 레지스트리에 등록되어 있는지를 판단할 수 있습니다.
+- **`ObjectIdentifier`** 는 **Type** 자체가 정의된 메타데이터를 기반으로 생성되기 때문에, 인스턴스의 레지스트리 등록 여부 판단 가능
 
 <br><br><br><br>
 
@@ -182,17 +182,16 @@ final class ImageCacheManager {
   
 ### HitTest 영역 미인식 문제
 
-
 <img src="https://github.com/wontaeyoung/Vanilladin/assets/45925685/a4eb4e40-22b5-4e9e-bd6f-59e40aa87f2a"><br>
 
-- 삭제 버튼의 탭 인터랙션이 반응하지 않는 문제가 발생했습니다.
-- 예상 가능한 원인인 Interaction Enabled, View Hierarchy를 검토해봤지만 이슈를 확인하지 못했습니다.
+- 삭제 버튼의 탭 인터랙션 미반응 문제 발생
+- 예상 가능한 원인인 Interaction Enabled, View Hierarchy를 검토했으나 이슈 확인 불가
   
 <br>
 
 #### 원인 확인
 
-삭제 버튼의 View 계층은 아래와 같습니다.
+삭제 버튼의 View 계층
 
 - contentView
     - paddingView
@@ -211,7 +210,7 @@ override func setConstraint() {
 }
 ```
 
-- paddingView의 레이아웃은 contentView를 기준으로 20의 padding을 가집니다.
+- paddingView은 contentView를 기준으로 20의 inner padding 적용
 
 <br><br>
 
@@ -219,11 +218,12 @@ override func setConstraint() {
 
 <br>
 
-- 위 사진의 파란색 선이 paddingView 영역으로, 상하 20 padding이 적용되면서 선에 가까운 높이를 가집니다.
+- 위 사진의 파란색 선이 paddingView 영역으로, 상하 20 padding이 적용되어 선에 가까운 높이로 드로잉
 
-- iOS의 터치 이벤트 처리 시스템에 따라서, **`hitTest`** 로직에서 터치 이벤트가 하위 뷰인 삭제버튼으로 전파되지 않고 nil을 반환하면서 버튼 인터랙션이 작동하지 않았습니다.
+- iOS의 터치 이벤트 처리 시스템에 따라서 paddingView의 **`hitTest`** 에서 터치 이벤트 영역이 존재하지 않아, 하위 뷰인 삭제버튼으로 터치 가능한 뷰로 인식하지 않음
+	- 시각적으로 뷰가 보이는 것과, 터치 이벤트 영역은 별개로 작동
   
-- 상하 padding 조절로 문제를 해결했습니다.
+- paddingView의 상하 padding 조절로 이슈 해결
 
 <br><br>
 
