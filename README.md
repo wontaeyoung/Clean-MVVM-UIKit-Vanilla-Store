@@ -4,28 +4,26 @@
 
 ![image](https://github.com/wontaeyoung/Vanilladin/assets/45925685/cbfbb37a-95ba-41ab-8478-6d7267890154)
 
-<br><br>
+<br>
 
 ### 한 줄 소개
 
 알라딘 책 정보 조회 앱
 
-<br><br>
+<br>
 
-### 사용자 기능
+### 서비스 기능
 
 - 텍스트 기반 검색 기능
 - 책 상세정보 조회 기능
 - 최근검색어 기능
 
-<br><br>
+<br>
 
 ## 프로젝트 환경
 
 **개발 인원**  
-1인
-
-<br>
+iOS 1인
 
 **개발 기간**  
 2023.08 ~ 2023.09 (6주)
@@ -35,14 +33,12 @@
 ## 개발 환경
 
 **iOS 최소 버전**  
-14.0 +
-
-<br>
+14.0+
 
 **Xcode**
 15.0.1
 
-<br><br>
+<br>
 
 ## 아키텍처
 
@@ -62,7 +58,7 @@
 |-|-|-|
 |<img src="https://github.com/wontaeyoung/Vanilladin/assets/45925685/304764b4-b15e-4205-ad67-3df334b0e1c0" width="160">|<img src="https://github.com/wontaeyoung/Vanilladin/assets/45925685/9e95036d-6404-4a39-b506-ae8f41d09fe7" width="160">|<img src="https://github.com/wontaeyoung/Vanilladin/assets/45925685/34ec8214-562f-4c3f-a046-abdaa78df98e" width="160">|
 
-<br><br><br><br>
+<br>
 
 ## 구현 고려사항
 
@@ -71,7 +67,7 @@
 - 데이터 변경 사항을 **MVP**와 **`Delegate`** 패턴으로 UI에 반영
 - 책 리스트 조회 **Offset 기반 페이지네이션** 구현
 
-<br><br><br><br>
+<br>
 
 ## 기술 활용
 
@@ -152,7 +148,7 @@ final class ImageCacheManager {
   
 </details>
 
-<br><br><br><br>
+<br>
 
 ### 다중 이미지 요청 병렬처리 적용
 
@@ -166,7 +162,7 @@ final class ImageCacheManager {
   
 <img src="https://github.com/wontaeyoung/Vanilladin/assets/45925685/0177aeaa-9e63-4be5-9769-d22c1877b857" width=400>
 
-<br><br><br><br>
+<br>
   
 ### 의존성 컨테이너 고유 인스턴스 식별
 
@@ -177,7 +173,7 @@ final class ImageCacheManager {
 
 - **`ObjectIdentifier`** 는 **Type** 자체가 정의된 메타데이터를 기반으로 생성되기 때문에, 인스턴스의 레지스트리 등록 여부 판단 가능
 
-<br><br><br><br>
+<br>
 
 ## 트러블슈팅
   
