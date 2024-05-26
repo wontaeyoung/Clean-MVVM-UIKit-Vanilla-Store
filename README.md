@@ -61,6 +61,12 @@ iOS 1인
 
 <br>
 
+## 아키텍처
+
+![image](https://github.com/wontaeyoung/Vanilladin/assets/45925685/5fd27402-a55f-47eb-adbd-2c6004996222)
+
+<br>
+
 ## 기술 활용
 
 ### 이미지 캐싱 적용
@@ -164,12 +170,6 @@ final class ImageCacheManager {
 - 인스턴스 등록 여부를 식별하기 위해, **`ObjectIdentifier`** 를 레지스트리 Key로 채택
 
 - **`ObjectIdentifier`** 는 **Type** 자체가 정의된 메타데이터를 기반으로 생성되기 때문에, 인스턴스의 레지스트리 등록 여부 판단 가능
-
-<br>
-
-## 아키텍처
-
-![image](https://github.com/wontaeyoung/Vanilladin/assets/45925685/2e5cb5bf-0a90-4642-9347-a5cba0a9563f)
 
 <br>
 
