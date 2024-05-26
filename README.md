@@ -4,8 +4,6 @@
 
 ![image](https://github.com/wontaeyoung/Vanilladin/assets/45925685/cbfbb37a-95ba-41ab-8478-6d7267890154)
 
-<br>
-
 ### 한 줄 소개
 
 알라딘 책 정보 조회 앱
@@ -35,16 +33,10 @@ iOS 1인
 **iOS 최소 버전**  
 14.0+
 
-**Xcode**
+**Xcode**  
 15.0.1
 
 <br>
-
-## 아키텍처
-
-![image](https://github.com/wontaeyoung/Vanilladin/assets/45925685/3fe31588-e50e-400c-9d4c-9635b587013b)
-
-<br><br>
 
 ## 작동 화면
 
@@ -62,10 +54,10 @@ iOS 1인
 
 ## 구현 고려사항
 
-- 라이브러리를 사용하지 않고 **바닐라** 프로그래밍 구현
-- **`DI Container`** 를 구현해서 의존성 관리
+- **바닐라 프로그래밍**으로 ****라이브러리를 사용하지 않고 개발
+- **커스텀 DI Container**를 구현해서 **의존성 관리** 및 **참조 인스턴스 재사용**
 - 데이터 변경 사항을 **MVP**와 **`Delegate`** 패턴으로 UI에 반영
-- 책 리스트 조회 **Offset 기반 페이지네이션** 구현
+- 책 리스트 조회에 오프셋 **기반 페이지네이션** 적용
 
 <br>
 
@@ -162,7 +154,7 @@ final class ImageCacheManager {
   
 <img src="https://github.com/wontaeyoung/Vanilladin/assets/45925685/0177aeaa-9e63-4be5-9769-d22c1877b857" width=400>
 
-<br>
+<br><br>
   
 ### 의존성 컨테이너 고유 인스턴스 식별
 
@@ -172,6 +164,12 @@ final class ImageCacheManager {
 - 인스턴스 등록 여부를 식별하기 위해, **`ObjectIdentifier`** 를 레지스트리 Key로 채택
 
 - **`ObjectIdentifier`** 는 **Type** 자체가 정의된 메타데이터를 기반으로 생성되기 때문에, 인스턴스의 레지스트리 등록 여부 판단 가능
+
+<br>
+
+## 아키텍처
+
+![image](https://github.com/wontaeyoung/Vanilladin/assets/45925685/2e5cb5bf-0a90-4642-9347-a5cba0a9563f)
 
 <br>
 
