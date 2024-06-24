@@ -63,7 +63,8 @@ iOS 1인
 
 ## 아키텍처
 
-![image](https://github.com/wontaeyoung/Vanilladin/assets/45925685/5fd27402-a55f-47eb-adbd-2c6004996222)
+![image](https://github.com/wontaeyoung/Vanilladin/assets/45925685/9813f622-8484-4bc2-8808-97832d71c02e)
+
 
 <br>
 
